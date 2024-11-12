@@ -81,11 +81,11 @@ const PricingTable = () => {
   return (
     <div style={containerStyle}>
       {[{
-        imgSrc: 'icons/icon1.png', title: 'Personal', features: ['Custom domains', 'Sleeps after 30 mins of inactivity'], price: 'Free', buttonText: 'Sign up'
+        imgSrc: 'icon1.png', title: 'Personal', features: ['Custom domains', 'Sleeps after 30 mins of inactivity'], price: 'Free', buttonText: 'Sign up'
       }, {
-        imgSrc: 'icons/icon2.png', title: 'Small team', features: ['Never sleeps', 'Multiple workers for more powerful apps'], price: '$150', buttonText: 'Free trial'
+        imgSrc: 'icon2.png', title: 'Small team', features: ['Never sleeps', 'Multiple workers for more powerful apps'], price: '$150', buttonText: 'Free trial'
       }, {
-        imgSrc: 'icons/icon3.png', title: 'Enterprise', features: ['Dedicated', 'Simple horizontal scalability'], price: '$400', buttonText: 'Free trial'
+        imgSrc: 'icon3.png', title: 'Enterprise', features: ['Dedicated', 'Simple horizontal scalability'], price: '$400', buttonText: 'Free trial'
       }].map((plan, index) => (
         <div
           key={index}
@@ -93,7 +93,7 @@ const PricingTable = () => {
           onMouseEnter={() => setHoveredIndex(index)} // Set hovered plan
           onMouseLeave={() => setHoveredIndex(null)}   // Reset hovered plan
         >
-          <img src={plan.imgSrc} alt="" style={{ width: '60px', marginBottom: '10px' }} />
+          <img src={plan.imgSrc} alt="" style={{ width: '200px', marginBottom: '10px' }} />
           <h2 style={headerStyle}>{plan.title}</h2>
           <ul style={featuresListStyle}>
             {plan.features.map((feature, i) => (
