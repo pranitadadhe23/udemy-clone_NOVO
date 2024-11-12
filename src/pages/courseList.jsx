@@ -35,44 +35,52 @@
 
 import * as React from 'react';
 import { Card, CardContent, CardMedia, Typography, Grid, Box, Tabs, Tab, Stack, Button, Rating } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const thumbnailImage = 'thumbnail.png'; // Update with the correct image path
+
 
 const courses = [
   {
     title: 'Web Development',
     description: 'Learn to build modern web applications.',
     imageUrl: 'webdevimg.jpg',
-    price: '$29.99',
+    price: '₹299',
     rating: 4.5,
+    id:0,
   },
   {
     title: 'Data Science',
     description: 'Explore data analysis and machine learning.',
     imageUrl: 'datasciimg.jpg',
-    price: '$39.99',
+    price: '₹399',
     rating: 4.7,
+    id:1,
   },
   {
     title: 'Digital Marketing',
     description: 'Master online marketing and SEO techniques.',
     imageUrl: 'marketing.jpg',
-    price: '$19.99',
+    price: '₹499',
     rating: 4.2,
+    id:2,
   },
   {
     title: 'Graphic Design',
     description: 'Learn design principles and software skills.',
     imageUrl: 'graphicimg.jpg',
-    price: '$24.99',
+    price: '₹499',
     rating: 4.6,
+    id:3,
   },
-  // Repeat the courses as needed...
 ];
 
 function CourseList() {
   const [selectedCategory, setSelectedCategory] = React.useState(0);
-
+  const navigate = useNavigate()
+  const handleNavigate=(id)=>{
+    navigate('./purchase')
+  }
   const handleCategoryChange = (event, newValue) => {
     setSelectedCategory(newValue);
   };
@@ -90,7 +98,7 @@ function CourseList() {
           All the skills you need in one place
         </Typography>
         <Typography variant="body1" color="textSecondary">
-          From critical skills to technical topics, Udemy supports your professional development.
+          From critical skills to technical topics, NOVO supports your professional development.
         </Typography>
       </Box>
 
@@ -254,6 +262,7 @@ function CourseList() {
         {courses.map((course, index) => (
           <Grid item xs={12} sm={6} md={3} key={index}>
             <Card
+            onClick={() => {handleNavigate(course.id)}}
               sx={{
                 boxShadow: 3,
                 '&:hover': {
