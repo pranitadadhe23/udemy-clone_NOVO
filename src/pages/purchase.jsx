@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const PricingTable = () => {
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+
   const containerStyle = {
     display: 'flex',
     justifyContent: 'center',
@@ -23,7 +25,16 @@ const PricingTable = () => {
     borderRadius: '8px',
     textAlign: 'center',
     backgroundColor: '#f9f9f9', // Light gray for the plan card
-    color: '#000'               // Black text color
+    color: '#000',               // Black text color
+    transition: 'transform 0.3s ease, box-shadow 0.3s ease', // Smooth transition
+    cursor: 'pointer'           // Cursor pointer on hover
+  };
+
+  const hoverPlanStyle = {
+    ...planStyle,
+    transform: 'scale(1.05)', // Slightly scale the card
+    boxShadow: '0 6px 15px rgba(0, 0, 0, 0.3)', // Darker and larger shadow
+    backgroundColor: '#e0e0e0' // Slightly darken the background color
   };
 
   const headerStyle = {
@@ -69,38 +80,35 @@ const PricingTable = () => {
 
   return (
     <div style={containerStyle}>
-      <div style={planStyle}>
-        <img src="icons/icon1.png" alt="" style={{ width: '60px', marginBottom: '10px' }} />
-        <h2 style={headerStyle}>Personal</h2>
-        <ul style={featuresListStyle}>
-          <li style={featureItemStyle}>Custom domains</li>
-          <li style={featureItemStyle}>Sleeps after 30 mins of inactivity</li>
-        </ul>
-        <span style={priceStyle}>Free</span>
-        <a href="#/" style={buttonStyle}>Sign up</a>
-      </div>
-
-      <div style={planStyle}>
-        <img src="icons/icon2.png" alt="" style={{ width: '60px', marginBottom: '10px' }} />
-        <h2 style={headerStyle}>Small team</h2>
-        <ul style={featuresListStyle}>
-          <li style={featureItemStyle}>Never sleeps</li>
-          <li style={featureItemStyle}>Multiple workers for more powerful apps</li>
-        </ul>
-        <span style={priceStyle}>$150</span>
-        <a href="#/" style={featuredButtonStyle}>Free trial</a>
-      </div>
-
-      <div style={planStyle}>
-        <img src="icons/icon3.png" alt="" style={{ width: '60px', marginBottom: '10px' }} />
-        <h2 style={headerStyle}>Enterprise</h2>
-        <ul style={featuresListStyle}>
-          <li style={featureItemStyle}>Dedicated</li>
-          <li style={featureItemStyle}>Simple horizontal scalability</li>
-        </ul>
-        <span style={priceStyle}>$400</span>
-        <a href="#/" style={buttonStyle}>Free trial</a>
-      </div>
+      {[{
+        imgSrc: 'icons/icon1.png', title: 'Personal', features: ['Custom domains', 'Sleeps after 30 mins of inactivity'], price: 'Free', buttonText: 'Sign up'
+      }, {
+        imgSrc: 'icons/icon2.png', title: 'Small team', features: ['Never sleeps', 'Multiple workers for more powerful apps'], price: '$150', buttonText: 'Free trial'
+      }, {
+        imgSrc: 'icons/icon3.png', title: 'Enterprise', features: ['Dedicated', 'Simple horizontal scalability'], price: '$400', buttonText: 'Free trial'
+      }].map((plan, index) => (
+        <div
+          key={index}
+          style={hoveredIndex === index ? hoverPlanStyle : planStyle}
+          onMouseEnter={() => setHoveredIndex(index)} // Set hovered plan
+          onMouseLeave={() => setHoveredIndex(null)}   // Reset hovered plan
+        >
+          <img src={plan.imgSrc} alt="" style={{ width: '60px', marginBottom: '10px' }} />
+          <h2 style={headerStyle}>{plan.title}</h2>
+          <ul style={featuresListStyle}>
+            {plan.features.map((feature, i) => (
+              <li key={i} style={featureItemStyle}>{feature}</li>
+            ))}
+          </ul>
+          <span style={priceStyle}>{plan.price}</span>
+          <a
+            href="#/"
+            style={buttonStyle}
+          >
+            {plan.buttonText}
+          </a>
+        </div>
+      ))}
     </div>
   );
 };
